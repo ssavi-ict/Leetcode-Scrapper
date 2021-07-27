@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leetcode Status</title>
+        <meta charset="utf-8"> 
+        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+        <link rel="manifest" href="images/site.webmanifest">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+        <script type="text/javascript" src="data.js"></script>
+        <style>
+            #image_container {
+                width: 150px;
+                height: 170px;
+                border-radius: 10px;
+                background: #333;
+                float: right;
+            }
+            #imageAsname {
+                width: 100%;
+                text-align: center;
+                color: white;
+                font-size: 150px;
+                line-height: 170px;
+            }
+        </style>
+    </head>
+
+    <body style="font-family: 'Times New Roman', Times, serif;">
+        <div class="container">
+            <!-- <hr style="width: 300px; border: 5px solid green; border-radius: 5px;"> -->
+            <br><h1 style="text-align: center;">Your Leetcode Status</h1><br>
+            <!-- <hr style="width: 300px; border: 5px solid green; border-radius: 5px;"> -->
+            <h3 style="text-align: center; background-color: green; color:white;">Summary</h3><br>
+            <div id="image_container">
+                <div id="imageAsname"> </div>
+            </div>
+            <b><p id = "basic_info" style="font-size: medium;"></p></b>
+            <h3 style="text-align: center;background-color: green; color:white;">Detailed Status</h3><br>
+            <table id="my_table" class="table" style="border: 1px solid black; text-align: left;"> 
+            </table>
+            <br>
+            <footer>
+                <p style="font-style: italic;text-align: center; background: lightgray; border: 1px solid black">
+                    Avik Sarkar, Email: <a href="mailto:ssavi.cou@gmail.com">ssavi.cou@gmail.com</a>
+                </p>
+            </footer>
+            <br>
+        </div> 
+        <script> 
+            var local_data = data;
+            var failed = 0, tried = 0;
+            var row_data = '';
+            row_data = row_data + '<tr><th style="border: 1px solid black; background: lightgray; " >' + 'Problem Number ';
+            row_data = row_data + '<button onclick="sortTableInteger()" style = "font-size:13px; background:#4CAF50;border: none;color:white; float:right";>Sort</button></th>';
+            row_data = row_data + '<th style="border: 1px solid black; background: lightgray;" >' + 'Problem Title ';
+            row_data = row_data + '<button onclick="sortTableString()" style = "font-size:13px; background:#4CAF50;border: none;color:white; float:right";>Sort</button></th>';
+            row_data = row_data + '<th style="border: 1px solid black; background: lightgray; text-align:center;" >' + 'Problem Difficulty' + '</th>';
+            row_data = row_data + '<th style="border: 1px solid black; background: lightgray; text-align:center;" >' + 'Problem Status' + '</th></tr>';
+            for (var i = 0; i < local_data[0].stat_status_pairs.length; i++) {
+                if(local_data[0].stat_status_pairs[i].status !== null){
+                    tried++;
+                    row_data = row_data + '<tr>' + 
+                    ' <td style="border: 1px solid black; ">' + local_data[0].stat_status_pairs[i].stat.question_id + '</td>' +
+                    ' <td style="border: 1px solid black; "> <a href = "https://leetcode.com/problems/' + local_data[0].stat_status_pairs[i].stat.question__title_slug + '" target="_blank">' + local_data[0].stat_status_pairs[i].stat.question__title + '</a></td>' + 
+                    ' <td style="border: 1px solid black; text-align:center; ">' + local_data[0].stat_status_pairs[i].difficulty.level + '</td>';
+                    
+                    if(local_data[0].stat_status_pairs[i].status === "ac"){
+                        row_data = row_data + ' <td style="border: 1px solid black; color:green; font-weight: bold; text-align:center;">' + "PASS" + '</td></tr>';
+                    }
+                    else{
+                        failed++;
+                        row_data = row_data + ' <td style="border: 1px solid black; color:red; font-weight: bold; text-align:center;">' + "FAIL" + '</td></tr>';
+                    }
+                }
+            }
+            //local_data.stat_status_pairs.length
+            var table_body_element = document.createElement('tbody'); 
+            table_body_element.innerHTML = row_data; 
+            document.getElementById('my_table').appendChild(table_body_element);
+
+            // Summarized Information
+            var basic_info = "Username : "+ local_data[0].user_name;
+            basic_info = basic_info + "<br>Total Problems: " + local_data[0].num_total;
+            basic_info = basic_info + "<br>Total Tried: " + tried;
+            basic_info = basic_info + "<br>Total Passed: " + local_data[0].num_solved;
+            basic_info = basic_info + "<br>Total Failed: " + failed;
+            basic_info = basic_info + "<br>Total Easy Solved: " + local_data[0].ac_easy;
+            basic_info = basic_info + "<br>Total Medium Solved: " + local_data[0].ac_medium;
+            basic_info = basic_info + "<br>Total Hard Solved: " + local_data[0].ac_hard;
+            document.getElementById('basic_info').innerHTML = basic_info;
+            
+            //Taking Names For Images
+            var initials = local_data[0].user_name.charAt(0).toUpperCase();
+            document.getElementById("imageAsname").innerHTML = initials;
+
+
+            function sortTableInteger() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("my_table");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[0];
+                    y = rows[i + 1].getElementsByTagName("TD")[0];
+                    if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
+            function sortTableString() {
+                var table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("my_table");
+                switching = true;
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+                    for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[1];
+                    y = rows[i + 1].getElementsByTagName("TD")[1];
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+          </script>
+    </body>
+</html>
