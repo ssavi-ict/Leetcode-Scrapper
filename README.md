@@ -1,8 +1,8 @@
 # Leetcode-Scrapper
 Leetcode-Scrapper is a JSON based scrapper for Leetcode approached problems of an user. Like this -
-![leetcode-scrapper-image](images/1.png)
+![leetcode-scrapper-image](images/1.PNG)
 
-![leetcode-scrapper-image](images/2.png)
+![leetcode-scrapper-image](images/2.PNG)
 
 To work with this repository follow the steps below.
 
