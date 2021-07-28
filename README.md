@@ -18,7 +18,11 @@ Login at https://leetcode.com/
 
 
 # Step 3
-Then go to this link: https://leetcode.com/api/problems/algorithms/
+Then go to one of the following link -
+(1) https://leetcode.com/api/problems/algorithms/ (For Algorithmic Problem's List)
+(2) https://leetcode.com/api/problems/database/   (For Database Problem's List)
+(3) https://leetcode.com/api/problems/shell/ (For Shell Problem's List)
+(4) https://leetcode.com/api/problems/concurrency/ (For Concurrency Problem's List)
 
 Although leetcode doesn't provide an official API, we can use the above mentioned API url used by leetcode internally to fetch status of an user that returns a json file containing info about problems.
 

@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<!--
+    @Author: Avik Sarkar | email: ssavi.cou@gmail.com
+-->
 <html>
     <head>
         <title>Leetcode Status</title>
@@ -33,14 +36,20 @@
     <body style="font-family: 'Times New Roman', Times, serif;">
         <div class="container">
             <!-- <hr style="width: 300px; border: 5px solid green; border-radius: 5px;"> -->
-            <br><h1 style="text-align: center;">Your Leetcode Status</h1><br>
+            <br><h1 id ="heading_line" style="text-align: center;"></h1><br>
             <!-- <hr style="width: 300px; border: 5px solid green; border-radius: 5px;"> -->
-            <h3 style="text-align: center; background-color: green; color:white;">Summary</h3><br>
+            <h3 style="text-align: center;background-color: green; color:white; padding:4px; border-radius: 5px;">
+                Summary
+            </h3>
+            <br>
             <div id="image_container">
                 <div id="imageAsname"> </div>
             </div>
             <b><p id = "basic_info" style="font-size: medium;"></p></b>
-            <h3 style="text-align: center;background-color: green; color:white;">Detailed Status</h3><br>
+            <h3 style="text-align: center;background-color: green; color:white; padding:4px; border-radius: 5px;">
+                Detailed Status
+            </h3>
+            <br>
             <table id="my_table" class="table" style="border: 1px solid black; text-align: left;"> 
             </table>
             <br>
@@ -54,6 +63,9 @@
         <script> 
             var local_data = data;
             var failed = 0, tried = 0;
+
+            // Working with Table Data
+
             var row_data = '';
             row_data = row_data + '<tr><th style="border: 1px solid black; background: lightgray; " >' + 'Problem Number ';
             row_data = row_data + '<button onclick="sortTableInteger()" style = "font-size:13px; background:#4CAF50;border: none;color:white; float:right";>Sort</button></th>';
@@ -78,14 +90,27 @@
                     }
                 }
             }
-            //local_data.stat_status_pairs.length
+
+            
+            // Linking table data with HTML body
+
             var table_body_element = document.createElement('tbody'); 
             table_body_element.innerHTML = row_data; 
             document.getElementById('my_table').appendChild(table_body_element);
 
+
+            // First line formatting
+            
+            var first_line = '<a href = "https://leetcode.com/' + local_data[0].user_name + '" target="_blank">';
+            first_line = first_line + local_data[0].user_name + '</a>\'s Leetcode Status';
+            document.getElementById('heading_line').innerHTML = first_line;
+
+
             // Summarized Information
+
+            var slug_category = local_data[0].category_slug.substring(0, local_data[0].category_slug.length - 1);
             var basic_info = "Username : "+ local_data[0].user_name;
-            basic_info = basic_info + "<br>Total Problems: " + local_data[0].num_total;
+            basic_info = basic_info + "<br>Total " + slug_category[0].toUpperCase() + slug_category.slice(1).toLowerCase() +" Problems: " + local_data[0].num_total;
             basic_info = basic_info + "<br>Total Tried: " + tried;
             basic_info = basic_info + "<br>Total Passed: " + local_data[0].num_solved;
             basic_info = basic_info + "<br>Total Failed: " + failed;
@@ -93,11 +118,16 @@
             basic_info = basic_info + "<br>Total Medium Solved: " + local_data[0].ac_medium;
             basic_info = basic_info + "<br>Total Hard Solved: " + local_data[0].ac_hard;
             document.getElementById('basic_info').innerHTML = basic_info;
+
             
+
             //Taking Names For Images
+
             var initials = local_data[0].user_name.charAt(0).toUpperCase();
             document.getElementById("imageAsname").innerHTML = initials;
 
+
+            // Sort the complete list based on problem number
 
             function sortTableInteger() {
                 var table, rows, switching, i, x, y, shouldSwitch;
@@ -121,6 +151,9 @@
                     }
                 }
             }
+
+
+            // Sort the complete list based on problem name
 
             function sortTableString() {
                 var table, rows, switching, i, x, y, shouldSwitch;
