@@ -8,9 +8,9 @@ To work with this repository follow the steps below.
 
 # Step 1
 Clone this repository using -
-``` git clone https://github.com/Bishalsarang/Leetcode-Questions-Scraper.git ```
+``` https://github.com/ssavi-ict/Leetcode-Scrapper.git ```
 
-or download the zip by clicking [here](https://github.com/Bishalsarang/Leetcode-Questions-Scraper/archive/refs/heads/master.zip).
+or download the zip by clicking [here](https://github.com/ssavi-ict/Leetcode-Scrapper/archive/refs/heads/main.zip).
 
 
 # Step 2
